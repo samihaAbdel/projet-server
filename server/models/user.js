@@ -23,6 +23,10 @@ let userSchema  = new mongoose.Schema({
     LinkImage : {
         type : String,
         required : true
-    }
+    },
+    Posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref : 'Post'
+    }],
 })
 module.exports = mongoose.model('Users', userSchema)

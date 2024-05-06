@@ -13,7 +13,7 @@ exports.Register = async(req,res) => {
             res.status(401).send({msg : "User already exist"});
         }
         else {
-            const newUser = await new UserSchema({ ...req.body });
+            const newUser = new UserSchema({ ...req.body });
             newUser.password = await bcrypt.hash(req.body.password, saltRounds);
             newUser.save().then((user) => {
                 const token = jwt.sign({id: user._id},process.env.SECRET_KEY, {expiresIn : '3h'});
@@ -56,12 +56,11 @@ exports.DeleteUser = async (req,res) => {
 };
 exports.UpdateUser = async (req,res) => {
     try {
-        const newUser = await new UserSchema({ ...req.body });
-        newUser.Password = await bcrypt.hash(req.body.Password, saltRounds);
+        const newUser = new UserSchema({ ...req.body });
+        newUser.password = await bcrypt.hash(req.body.password, saltRounds);
         const result = await UserSchema.updateOne({ _id: newUser._id }, { $set: newUser  }); 
         console.log(result);
         res.status(200).send({msg : 'User updated' });
-      
     }catch(error)
     {
       res.status(400).send({ errors: [{ msg: error }] });

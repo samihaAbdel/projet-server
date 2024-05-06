@@ -3,6 +3,7 @@ const connectDB =require ('./Config/DbConnection');
 const dotenv = require("dotenv");
 const cors = require('cors');
 const usersRoutes= require ('./Routes/user');
+const postsRoutes= require ('./Routes/post');
 
 
 dotenv.config();
@@ -13,9 +14,9 @@ app.use(express.json({limit: "50mb"}));
 app.use(express.urlencoded({limit: "10mb", extended: true}));
 
 
-  
 connectDB();
-app.use('/users', usersRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/posts', postsRoutes);
 const PORT = process.env.PORT;
 app.listen(PORT, (err) =>
     err ? console.log(err) : console.log(`server is running on PORT ${PORT}`)

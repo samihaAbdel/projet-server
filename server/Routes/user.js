@@ -7,7 +7,7 @@ router.post('/Register', Register);
 router.get('/GetOne/:id',GetOne);
 router.get('/GetAll', GetAll)
 router.delete('/Delete/:id',DeleteUser);
-router.put('/UpdateUser',UpdateUser);
+router.put('/UpdateUser/:id',UpdateUser);
 router.post('/Login' , Login);
 router.get('/current' , IsAuth)
 
