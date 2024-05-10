@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
         type : String, 
         required: true,
         min: 6,
-        max: 255,
+        max: 1000,
     },
     DatePost : {
         type : Date,
@@ -20,10 +20,12 @@ const postSchema = new mongoose.Schema({
     IsValid: {
         type: Boolean,
         required: true,
+        default:false,
         },
     User: {
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'User'
+        ref: 'User',
+        required:true,
     },
     LinkImage: {
         type : String, 

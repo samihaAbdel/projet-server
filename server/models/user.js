@@ -10,7 +10,8 @@ let userSchema  = new mongoose.Schema({
     } ,
     email : {
         type: String,
-        required : true,
+        required: true,
+        unique:true,
     } ,
     password: {
         type: String,
@@ -18,12 +19,14 @@ let userSchema  = new mongoose.Schema({
     } ,
     role : {
         type: Number,
-        required : true,
+        required: true,
+        default:0
     } ,
     LinkImage : {
         type : String,
         required : true
     },
+    
     Posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref : 'Post'

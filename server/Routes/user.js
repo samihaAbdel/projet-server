@@ -1,14 +1,16 @@
-const { Register, GetOne, DeleteUser, UpdateUser, Login, IsAuth, GetAll } = require("../Controllers/user");
+const { Register, GetOne, DeleteUser, UpdateUser, Login, GetAll, Current } = require("../Controllers/user");
 const express= require('express');
+const isAuth = require("../middleware/isAuth");
+const  isAdmin  = require("../middleware/isAdmin");
 
 const router = express.Router();
 
 router.post('/Register', Register);
+router.post('/Login' , Login);
+router.get('/current' ,isAuth, Current )
+router.delete('/Delete/:id',isAuth, isAdmin, DeleteUser);
+router.put('/UpdateUser/:id',isAuth,isAdmin, UpdateUser);
 router.get('/GetOne/:id',GetOne);
 router.get('/GetAll', GetAll)
-router.delete('/Delete/:id',DeleteUser);
-router.put('/UpdateUser/:id',UpdateUser);
-router.post('/Login' , Login);
-router.get('/current' , IsAuth)
 
 module.exports = router;
