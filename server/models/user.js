@@ -22,11 +22,12 @@ let userSchema  = new mongoose.Schema({
         required: true,
         default:0
     } ,
-    LinkImage : {
+   photo: {
         type : String,
-        required : true
+        required: true,
+        
     },
-    
+    cloudinary_id: String,
     Posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref : 'Post'

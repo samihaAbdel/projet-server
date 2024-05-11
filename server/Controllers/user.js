@@ -2,6 +2,8 @@ const UserSchema = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
+const cloudinary = require("../utils/cloudinary");
+const upload = require("../utils/multer");
 
 exports.Register = async (req, res) => {
   try {
@@ -9,7 +11,15 @@ exports.Register = async (req, res) => {
     if (userTest !== null) {
       res.status(401).send({ msg: "User already exist" });
     } else {
-      const newUser = new UserSchema({ ...req.body });
+      const result = await cloudinary.uploader.upload(req.file.path);
+      const newUser = new UserSchema({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
+        photo: result.secure_url,
+        cloudinary_id: result.public_id,
+      });
       newUser.password = await bcrypt.hash(req.body.password, saltRounds);
       newUser
         .save()

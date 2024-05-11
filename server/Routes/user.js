@@ -2,10 +2,10 @@ const { Register, GetOne, DeleteUser, UpdateUser, Login, GetAll, Current } = req
 const express= require('express');
 const isAuth = require("../middleware/isAuth");
 const  isAdmin  = require("../middleware/isAdmin");
-
+const upload = require("../utils/multer")
 const router = express.Router();
 
-router.post('/Register', Register);
+router.post('/Register',upload.single("image"), Register);
 router.post('/Login' , Login);
 router.get('/current' ,isAuth, Current )
 router.delete('/Delete/:id',isAuth, isAdmin, DeleteUser);
